@@ -3,17 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:floating_clock"
+        xmlns:local="clr-namespace:floating_clock" d:DataContext="{d:DesignInstance Type=local:DataModel}"
         mc:Ignorable="d"
         Title="MainWindow" 
         Width="140" 
         Height="192"
-         SizeToContent="Height"
+        SizeToContent="Height"
         HorizontalAlignment="Left" 
         VerticalAlignment="Top" 
         AllowsTransparency="True"
         WindowStyle="None"
         MouseDown="Window_MouseDown"
+        Topmost="{Binding Topmost}"
         Background="#7F323546"
         Foreground="White">
 
@@ -28,36 +29,10 @@
   
     </Window.Resources>
 
-    <!-- 添加右键菜单 -->
-    <Window.ContextMenu>
-        <ContextMenu>
-            <MenuItem Header="窗口置顶" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
-            <!--<MenuItem Header="窗口锁定" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>-->
-            <Separator />
-            <MenuItem Header="视图">
-                <MenuItem Header="时钟" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
-                <MenuItem Header="CPU" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
-                <MenuItem Header="内存" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
-                <MenuItem Header="上传网速" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
-                <MenuItem Header="下载网速" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>
-            </MenuItem>
-            <MenuItem Header="颜色">
-                <MenuItem Header="默认" />
-                <MenuItem Header="蓝" />
-                <MenuItem Header="绿" />
-                <MenuItem Header="紫" />
-                <MenuItem Header="橙" />
-            </MenuItem>
-            <Separator/>
-
-            <MenuItem Header="帮助" Click="MenuItem_Click_Help" />
-            <MenuItem Header="关闭" Click="MenuItem_Click_Exit" />
-        </ContextMenu>
-    </Window.ContextMenu>
     
     <!-- 主布局 -->
     <StackPanel x:Name="layout" Margin="10">
-        <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="20" Visibility="{Binding Name}"/>
+        <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="20" Visibility="{Binding VisibilityClock}"/>
 
         <Grid Height="auto">
             <Grid.RowDefinitions>
@@ -72,20 +47,46 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="CPU"   />
-            <Label Grid.Row="0" Grid.Column="1" Content="{Binding CPU}" HorizontalContentAlignment="Right"  />
+            <Label Grid.Row="0" Grid.Column="0" Content="CPU"  Visibility="{Binding VisibilityCPU}" />
+            <Label Grid.Row="0" Grid.Column="1" Content="{Binding CPU}"  Visibility="{Binding VisibilityCPU}"  HorizontalContentAlignment="Right"  />
 
-            <Label Grid.Row="1" Grid.Column="0" Content="内存"  />
-            <Label Grid.Row="1" Grid.Column="1" Content="{Binding RAM}" HorizontalContentAlignment="Right"  />
-            
-            <Label Grid.Row="2" Grid.Column="0" Content="上传"  />
-            <Label Grid.Row="2" Grid.Column="1" Content="{Binding Upload}" HorizontalContentAlignment="Right"  />
-            
-            <Label Grid.Row="3" Grid.Column="0" Content="下载"  />
-            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Download}" HorizontalContentAlignment="Right"  />
+            <Label Grid.Row="1" Grid.Column="0" Content="内存" Visibility="{Binding VisibilityRAM}"  />
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding RAM}" Visibility="{Binding VisibilityRAM}"  HorizontalContentAlignment="Right"  />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="上传" Visibility="{Binding VisibilityUpload}"  />
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding Upload}" Visibility="{Binding VisibilityUpload}"  HorizontalContentAlignment="Right"  />
+
+            <Label Grid.Row="3" Grid.Column="0" Content="下载" Visibility="{Binding VisibilityDownload}"  />
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Download}" Visibility="{Binding VisibilityDownload}"  HorizontalContentAlignment="Right"  />
 
         </Grid>
 
+        <!-- 添加右键菜单 -->
+        <StackPanel.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="窗口置顶" IsCheckable="True" IsChecked="{Binding Topmost, Mode=TwoWay}"/>
+                <!--<MenuItem Header="窗口锁定" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>-->
+                <Separator />
+                <MenuItem Header="视图">
+                    <MenuItem Header="时钟" IsCheckable="True"    IsChecked="{Binding ShowClock, Mode=TwoWay}" />
+                    <MenuItem Header="CPU" IsCheckable="True"     IsChecked="{Binding ShowCPU, Mode=TwoWay}"/>
+                    <MenuItem Header="内存" IsCheckable="True"    IsChecked="{Binding ShowRAM, Mode=TwoWay}" />
+                    <MenuItem Header="上传网速" IsCheckable="True" IsChecked="{Binding ShowUpload, Mode=TwoWay}" />
+                    <MenuItem Header="下载网速" IsCheckable="True" IsChecked="{Binding ShowDownload, Mode=TwoWay}" />
+                </MenuItem>
+                <MenuItem Header="颜色">
+                    <MenuItem Header="默认" />
+                    <MenuItem Header="蓝" />
+                    <MenuItem Header="绿" />
+                    <MenuItem Header="紫" />
+                    <MenuItem Header="橙" />
+                </MenuItem>
+                <Separator/>
+
+                <MenuItem Header="帮助" Click="MenuItem_Click_Help" />
+                <MenuItem Header="关闭" Click="MenuItem_Click_Exit" />
+            </ContextMenu>
+        </StackPanel.ContextMenu>
 
 
     </StackPanel>
