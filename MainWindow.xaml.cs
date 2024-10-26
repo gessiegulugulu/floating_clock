@@ -71,39 +71,26 @@ namespace floating_clock
 
         }
 
-        private void MenuItem_Checked(object sender, RoutedEventArgs e)
-        {
-            MenuItem menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                MessageBox.Show($"功能未实现： {menuItem.Header}  ");
-            }
-        }
-
-        private void MenuItem_Unchecked(object sender, RoutedEventArgs e)
-        {
-            MenuItem menuItem = sender as MenuItem;
-            if (menuItem != null)
-            {
-                MessageBox.Show($"功能未实现： {menuItem.Header}  ");
-            }
-        }
-
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
             data.SaveSetting();
-            //data.SaveSetting();
             Close();
         }
 
         private void MenuItem_Click_Help(object sender, RoutedEventArgs e)
         {
-            var text = "Floating Clock / v0.0.1\n";
-            // text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
-            text += $"data.Color : {data.ColorName}\n";
-            text += "配置文件保存在\n";
+
+            var helpWindow = new HelpWindow(this);
+
+            var text = "";
+            text += "- 窗口打开来源: 右键菜单\n";
+
+            text += "- 配置文件保存在: \n";
             text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
-            MessageBox.Show(text, "帮助");
+            helpWindow.info.Text = text;
+
+            helpWindow.Show();
+            
         }
 
         private void Timer_Tick(object sender, EventArgs e)
