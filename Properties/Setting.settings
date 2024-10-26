@@ -27,7 +27,7 @@
       <Value Profile="(Default)">-1024</Value>
     </Setting>
     <Setting Name="ColorName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">gray</Value>
+      <Value Profile="(Default)">blue</Value>
     </Setting>
   </Settings>
 </SettingsFile>

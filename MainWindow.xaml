@@ -75,15 +75,15 @@
                     <MenuItem Header="下载网速" IsCheckable="True" IsChecked="{Binding ShowDownload, Mode=TwoWay}" />
                 </MenuItem>
                 <MenuItem Header="颜色">
-                    <MenuItem Header="红" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="程" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="黄" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="绿" IsChecked="{Binding ColorName, ConverterParameter=green, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"  IsCheckable="True"/>
-                    <MenuItem Header="清" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="蓝" IsChecked="{Binding ColorName, ConverterParameter=blue, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"   IsCheckable="True"/>
-                    <MenuItem Header="紫" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="粉" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="灰" IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="虚无灰" IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="红桃粉" IsChecked="{Binding ColorName, ConverterParameter=pink, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="梦幻紫" IsChecked="{Binding ColorName, ConverterParameter=purple, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="星空蓝" IsChecked="{Binding ColorName, ConverterParameter=blue, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"   IsCheckable="True"/>
+                    <MenuItem Header="薄荷青" IsChecked="{Binding ColorName, ConverterParameter=cyan, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="嫩草绿" IsChecked="{Binding ColorName, ConverterParameter=green, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"  IsCheckable="True"/>
+                    <MenuItem Header="柠檬黄" IsChecked="{Binding ColorName, ConverterParameter=yellow, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="夕阳橙" IsChecked="{Binding ColorName, ConverterParameter=orange, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="活力红" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
 
                 </MenuItem>
                 <Separator/>

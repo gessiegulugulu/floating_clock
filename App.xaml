@@ -8,10 +8,14 @@
         <local:StringToBooleanConverter x:Key="StringToBooleanConverter" />
         <local:ColorNameToColorBrushConverter x:Key="ColorNameToColorBrushConverter" />
 
-       
-        <SolidColorBrush x:Key="gray" Color="#7F323546"/>
-        <SolidColorBrush x:Key="red" Color="#7FFF0000"/>
-        <SolidColorBrush x:Key="green" Color="#7F00FF00"/>
-        <SolidColorBrush x:Key="blue" Color="#7F0000FF"/>
+        <SolidColorBrush Color="#7F444444" x:Key="gray"  />
+        <SolidColorBrush Color="#7F552020" x:Key="red"   />
+        <SolidColorBrush Color="#7F238202" x:Key="green" />
+        <SolidColorBrush Color="#7F1E2F65" x:Key="blue"  />
+        <SolidColorBrush Color="#7F854803" x:Key="orange"/>
+        <SolidColorBrush Color="#7F867E01" x:Key="yellow"/>
+        <SolidColorBrush Color="#7F24827C" x:Key="cyan"  />
+        <SolidColorBrush Color="#7F481B9F" x:Key="purple"/>
+        <SolidColorBrush Color="#7F9C5C7C" x:Key="pink"  />
     </Application.Resources>
 </Application>

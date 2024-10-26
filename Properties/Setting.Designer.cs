@@ -121,7 +121,7 @@ namespace floating_clock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("gray")]
+        [global::System.Configuration.DefaultSettingValueAttribute("blue")]
         public string ColorName {
             get {
                 return ((string)(this["ColorName"]));

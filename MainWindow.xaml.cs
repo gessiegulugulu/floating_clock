@@ -177,7 +177,7 @@ namespace floating_clock
         //    }
         //}
         // 不想用枚举类型了，底层直接用字符串
-       private string _color_name = "gray";
+       private string _color_name = "blue";
         public string ColorName
         {
             get => _color_name;
@@ -497,10 +497,5 @@ namespace floating_clock
         }
     }
 
-    public enum ColorOptions
-    {
-        red,
-        blue,
-        green,
-    }
+
 }
