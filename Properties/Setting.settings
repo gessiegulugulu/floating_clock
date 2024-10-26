@@ -26,5 +26,8 @@
     <Setting Name="PosTop" Type="System.Double" Scope="User">
       <Value Profile="(Default)">-1024</Value>
     </Setting>
+    <Setting Name="ColorName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">gray</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

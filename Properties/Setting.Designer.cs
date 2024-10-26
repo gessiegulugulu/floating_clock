@@ -118,5 +118,17 @@ namespace floating_clock.Properties {
                 this["PosTop"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("gray")]
+        public string ColorName {
+            get {
+                return ((string)(this["ColorName"]));
+            }
+            set {
+                this["ColorName"] = value;
+            }
+        }
     }
 }

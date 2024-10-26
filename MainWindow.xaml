@@ -83,7 +83,7 @@
                     <MenuItem Header="蓝" IsChecked="{Binding ColorName, ConverterParameter=blue, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"   IsCheckable="True"/>
                     <MenuItem Header="紫" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
                     <MenuItem Header="粉" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="灰" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="灰" IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
 
                 </MenuItem>
                 <Separator/>

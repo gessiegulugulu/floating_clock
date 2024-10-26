@@ -186,6 +186,7 @@ namespace floating_clock
                 if (_color_name != value)
                 {
                     _color_name = value;
+                    ChangeSetting();
                     OnPropertyChanged(nameof(ColorName));
                 }
             }
@@ -386,7 +387,7 @@ namespace floating_clock
             ShowRAM = Properties.Setting.Default.ShowRAM;
             ShowUpload = Properties.Setting.Default.ShowUpload;
             ShowDownload = Properties.Setting.Default.ShowDownload;
-
+            ColorName = Properties.Setting.Default.ColorName;
         }
 
 
@@ -409,7 +410,7 @@ namespace floating_clock
             Properties.Setting.Default.ShowRAM = ShowRAM;
             Properties.Setting.Default.ShowUpload = ShowUpload;
             Properties.Setting.Default.ShowDownload = ShowDownload;
-
+            Properties.Setting.Default.ColorName = ColorName;
             // Save the settings
             Properties.Setting.Default.Save();
 
