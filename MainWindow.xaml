@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:floating_clock" d:DataContext="{d:DesignInstance Type=local:DataModel}"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Floating Clock" 
         Width="140" 
         Height="192"
         SizeToContent="Height"
@@ -64,7 +64,7 @@
         <!-- 添加右键菜单 -->
         <StackPanel.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="窗口置顶" IsCheckable="True" IsChecked="{Binding Topmost, Mode=TwoWay}"/>
+                <MenuItem Header="置顶显示" IsCheckable="True" IsChecked="{Binding Topmost, Mode=TwoWay}"/>
                 <!--<MenuItem Header="窗口锁定" IsCheckable="True" Checked="MenuItem_Checked" Unchecked="MenuItem_Unchecked"/>-->
                 <Separator />
                 <MenuItem Header="视图">
@@ -74,7 +74,7 @@
                     <MenuItem Header="上传网速" IsCheckable="True" IsChecked="{Binding ShowUpload, Mode=TwoWay}" />
                     <MenuItem Header="下载网速" IsCheckable="True" IsChecked="{Binding ShowDownload, Mode=TwoWay}" />
                 </MenuItem>
-                <MenuItem Header="颜色">
+                <MenuItem Header="主题色">
                     <MenuItem Header="虚无灰" IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
                     <MenuItem Header="红桃粉" IsChecked="{Binding ColorName, ConverterParameter=pink, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
                     <MenuItem Header="梦幻紫" IsChecked="{Binding ColorName, ConverterParameter=purple, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
@@ -88,8 +88,8 @@
                 </MenuItem>
                 <Separator/>
 
-                <MenuItem Header="帮助" Click="MenuItem_Click_Help" />
-                <MenuItem Header="关闭" Click="MenuItem_Click_Exit" />
+                <MenuItem Header="帮助..." Click="MenuItem_Click_Help" />
+                <MenuItem Header="退出" Click="MenuItem_Click_Exit" />
             </ContextMenu>
         </StackPanel.ContextMenu>
 
