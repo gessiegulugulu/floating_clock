@@ -72,74 +72,63 @@ namespace floating_clock
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
-            //Properties.Settings.Default.Save();
-            data.SaveSetting();
+            Properties.Setting.Default.Save();
+            //data.SaveSetting();
             Close();
         }
 
         private void MenuItem_Click_Help(object sender, RoutedEventArgs e)
         {
-            var text = "Floating Clock / v0.0.1";
-            text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
-            MessageBox.Show(text);
+            var text = "Floating Clock / v0.0.1\n";
+            // text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
+            text += "配置文件保存在\n";
+            text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+            MessageBox.Show(text, "帮助");
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             data.Update();
 
+            var x = Properties.Setting.Default.PosLeft;
+            var y = Properties.Setting.Default.PosTop;
+            if(x != this.Left || y != this.Top){
+                Properties.Setting.Default.PosLeft = this.Left;
+                Properties.Setting.Default.PosTop = this.Top;
+                data.SaveSetting();
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            // TODO: 记录窗口停靠位置
-            var workingArea = SystemParameters.WorkArea;
-            this.Left = workingArea.Right - this.Width;
-            this.Top = (workingArea.Bottom / 2) - this.Height;
+           
+            var x = Properties.Setting.Default.PosLeft;
+            var y = Properties.Setting.Default.PosTop;
+
+            if(x+y < 0)
+            {
+                var workingArea = SystemParameters.WorkArea;
+                this.Left = workingArea.Right - this.Width-10;
+                this.Top = workingArea.Top  + this.Height;
+            }
+            else
+            {
+                this.Left = x;
+                this.Top = y;
+            }
+
+            //MessageBox.Show($"{x},{y}");
+     
         }
     }
 
-    /// <summary>
-    /// 用于用户设置的状态管理和持久化（未完成）
-    /// </summary>
-    public class Setting
-    {
-        public string Topmost { get; set; } = "True";
-        public string VisibilityClock { get; set; } = "Visible";
-        public string VisibilityCPU { get; set; } = "Visible";
-        public string VisibilityRAM { get; set; } = "Visible";
-        public string VisibilityUpload { get; set; } = "Visible";
-        public string VisibilityDownload { get; set; } = "Visible";
-
-        public Setting()
-        {
-            Load();
-        }
-
-        public void Load()
-        {
-            var _ = ConfigurationManager.AppSettings;
-
-            VisibilityClock = _["clock"] ?? "Collapsed";
-            //visibility_state["clock"] = _["clock"] ?? "Collapsed";
-            //visibility_state["CPU"] = _["CPU"] ?? "Visible";
-            //visibility_state["RAM"] = _["RAM"] ?? "Visible";
-            //visibility_state["upload"] = _["upload"] ?? "Visible";
-            //visibility_state["download"] = _["download"] ?? "Visible";
-
-
-        }
-        public static void Save()
-        {
-
-        }
-    }
 
     /// <summary>
     /// 主数据模型
     /// </summary>
     public class DataModel : INotifyPropertyChanged
     {
+        public bool mark_setting_changed = false;
 
         SystemMonitor systemMonitor = new SystemMonitor();
         long last_up = 0;
@@ -332,64 +321,84 @@ namespace floating_clock
 
         public void LoadSetting()
         {
-            var _ = ConfigurationManager.AppSettings;
-            Topmost = bool.Parse(_["Topmost"] ?? "true");
-            ShowClock = bool.Parse(_["ShowClock"] ?? "true");
-            ShowCPU = bool.Parse(_["ShowCPU"] ?? "true");
-            ShowRAM = bool.Parse(_["ShowRAM"] ?? "true");
-            ShowUpload = bool.Parse(_["ShowUpload"] ?? "true");
-            ShowDownload = bool.Parse(_["ShowDownload"] ?? "true");
+            //var _ = ConfigurationManager.AppSettings;
+            //Topmost = bool.Parse(_["Topmost"] ?? "true");
+            //ShowClock = bool.Parse(_["ShowClock"] ?? "true");
+            //ShowCPU = bool.Parse(_["ShowCPU"] ?? "true");
+            //ShowRAM = bool.Parse(_["ShowRAM"] ?? "true");
+            //ShowUpload = bool.Parse(_["ShowUpload"] ?? "true");
+            //ShowDownload = bool.Parse(_["ShowDownload"] ?? "true");
 
-            //Properties.Settings.Default.SaveSetting = true;
+            Topmost = Properties.Setting.Default.Topmost;
+            ShowClock = Properties.Setting.Default.ShowClock;
+            ShowCPU = Properties.Setting.Default.ShowCPU;
+            ShowRAM = Properties.Setting.Default.ShowRAM;
+            ShowUpload = Properties.Setting.Default.ShowUpload;
+            ShowDownload = Properties.Setting.Default.ShowDownload;
+
         }
 
 
 
         public void ChangeSetting()
         {
-            // 弃用
+            mark_setting_changed = true;
         }
 
 
 
         public void SaveSetting()
         {
-            
+            if (!mark_setting_changed) return;
 
-            
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var settings = config.AppSettings.Settings;
-                
-            if(settings["Topmost"] == null)
-                settings.Add("Topmost", Topmost.ToString());
-            else
-                settings["Topmost"].Value = Topmost.ToString();
+            // Assign the values to the settings properties
+            Properties.Setting.Default.Topmost = Topmost;
+            Properties.Setting.Default.ShowClock = ShowClock;
+            Properties.Setting.Default.ShowCPU = ShowCPU;
+            Properties.Setting.Default.ShowRAM = ShowRAM;
+            Properties.Setting.Default.ShowUpload = ShowUpload;
+            Properties.Setting.Default.ShowDownload = ShowDownload;
 
-            if (settings["ShowClock"] == null)
-                settings.Add("ShowClock", showClock.ToString());
-            else
-                settings["ShowClock"].Value = showClock.ToString();
+            // Save the settings
+            Properties.Setting.Default.Save();
 
-            if (settings["ShowCPU"] == null)
-                settings.Add("ShowCPU", showCPU.ToString());
-            else
-                settings["ShowCPU"].Value = showCPU.ToString();
+            mark_setting_changed = false;
 
-            if (settings["ShowRAM"] == null)
-                settings.Add("ShowRAM", showRAM.ToString());
-            else
-                settings["ShowRAM"].Value = showRAM.ToString();
 
-            if (settings["ShowUpload"] == null)
-                settings.Add("ShowUpload", showUpload.ToString());
-            else
-                settings["ShowUpload"].Value = showUpload.ToString();
+            //var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //var settings = config.AppSettings.Settings;
 
-            if (settings["ShowDownload"] == null)
-                settings.Add("ShowDownload", showDownload.ToString());
-            else
-                settings["ShowDownload"].Value = showDownload.ToString();
-            config.Save(ConfigurationSaveMode.Modified);
+            //if(settings["Topmost"] == null)
+            //    settings.Add("Topmost", Topmost.ToString());
+            //else
+            //    settings["Topmost"].Value = Topmost.ToString();
+
+            //if (settings["ShowClock"] == null)
+            //    settings.Add("ShowClock", showClock.ToString());
+            //else
+            //    settings["ShowClock"].Value = showClock.ToString();
+
+            //if (settings["ShowCPU"] == null)
+            //    settings.Add("ShowCPU", showCPU.ToString());
+            //else
+            //    settings["ShowCPU"].Value = showCPU.ToString();
+
+            //if (settings["ShowRAM"] == null)
+            //    settings.Add("ShowRAM", showRAM.ToString());
+            //else
+            //    settings["ShowRAM"].Value = showRAM.ToString();
+
+            //if (settings["ShowUpload"] == null)
+            //    settings.Add("ShowUpload", showUpload.ToString());
+            //else
+            //    settings["ShowUpload"].Value = showUpload.ToString();
+
+            //if (settings["ShowDownload"] == null)
+            //    settings.Add("ShowDownload", showDownload.ToString());
+            //else
+            //    settings["ShowDownload"].Value = showDownload.ToString();
+
+            //config.Save(ConfigurationSaveMode.Modified);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

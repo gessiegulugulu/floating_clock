@@ -25,7 +25,7 @@ namespace floating_clock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Topmost {
             get {
                 return ((bool)(this["Topmost"]));
@@ -37,7 +37,7 @@ namespace floating_clock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShowClock {
             get {
                 return ((bool)(this["ShowClock"]));
@@ -49,13 +49,73 @@ namespace floating_clock.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string aaa {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowCPU {
             get {
-                return ((string)(this["aaa"]));
+                return ((bool)(this["ShowCPU"]));
             }
             set {
-                this["aaa"] = value;
+                this["ShowCPU"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowRAM {
+            get {
+                return ((bool)(this["ShowRAM"]));
+            }
+            set {
+                this["ShowRAM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowUpload {
+            get {
+                return ((bool)(this["ShowUpload"]));
+            }
+            set {
+                this["ShowUpload"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowDownload {
+            get {
+                return ((bool)(this["ShowDownload"]));
+            }
+            set {
+                this["ShowDownload"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1024")]
+        public double PosLeft {
+            get {
+                return ((double)(this["PosLeft"]));
+            }
+            set {
+                this["PosLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1024")]
+        public double PosTop {
+            get {
+                return ((double)(this["PosTop"]));
+            }
+            set {
+                this["PosTop"] = value;
             }
         }
     }
