@@ -16,7 +16,7 @@
         MouseDown="Window_MouseDown"
         MouseUp="Window_MouseUp"
         Topmost="{Binding Topmost}"
-        Background="#7F323546"
+        Background="{Binding ColorName, Converter={StaticResource ColorNameToColorBrushConverter}}"
         Foreground="White">
 
     <Window.Resources>
@@ -26,7 +26,6 @@
             <Setter Property="Foreground" Value="{StaticResource fg}" />
         </Style>
 
-        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
 
     </Window.Resources>
 
@@ -76,11 +75,16 @@
                     <MenuItem Header="下载网速" IsCheckable="True" IsChecked="{Binding ShowDownload, Mode=TwoWay}" />
                 </MenuItem>
                 <MenuItem Header="颜色">
-                    <MenuItem Header="默认" />
-                    <MenuItem Header="蓝" />
-                    <MenuItem Header="绿" />
-                    <MenuItem Header="紫" />
-                    <MenuItem Header="橙" />
+                    <MenuItem Header="红" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="程" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="黄" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="绿" IsChecked="{Binding ColorName, ConverterParameter=green, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"  IsCheckable="True"/>
+                    <MenuItem Header="清" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="蓝" IsChecked="{Binding ColorName, ConverterParameter=blue, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"   IsCheckable="True"/>
+                    <MenuItem Header="紫" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="粉" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem Header="灰" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+
                 </MenuItem>
                 <Separator/>
 

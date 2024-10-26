@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:floating_clock"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <local:StringToBooleanConverter x:Key="StringToBooleanConverter" />
+        <local:ColorNameToColorBrushConverter x:Key="ColorNameToColorBrushConverter" />
+
+       
+        <SolidColorBrush x:Key="gray" Color="#7F323546"/>
+        <SolidColorBrush x:Key="red" Color="#7FFF0000"/>
+        <SolidColorBrush x:Key="green" Color="#7F00FF00"/>
+        <SolidColorBrush x:Key="blue" Color="#7F0000FF"/>
     </Application.Resources>
 </Application>

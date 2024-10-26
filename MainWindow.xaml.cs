@@ -24,7 +24,7 @@ namespace floating_clock
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// 
+    /// color palette
     public partial class MainWindow : Window
     {
         public DataModel data = new DataModel();
@@ -100,6 +100,7 @@ namespace floating_clock
         {
             var text = "Floating Clock / v0.0.1\n";
             // text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
+            text += $"data.Color : {data.ColorName}\n";
             text += "配置文件保存在\n";
             text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
             MessageBox.Show(text, "帮助");
@@ -160,6 +161,36 @@ namespace floating_clock
         public string Upload { get; set; } = "";
         public string Download { get; set; } = "";
 
+        
+
+        //private ColorOptions _color = ColorOptions.blue;
+        //public ColorOptions Color
+        //{
+        //    get => _color;
+        //    set
+        //    {
+        //        if (_color != value)
+        //        {
+        //            _color = value;
+        //            OnPropertyChanged(nameof(Color));
+        //        }
+        //    }
+        //}
+        // 不想用枚举类型了，底层直接用字符串
+       private string _color_name = "gray";
+        public string ColorName
+        {
+            get => _color_name;
+            set
+            {
+                if (_color_name != value)
+                {
+                    _color_name = value;
+                    OnPropertyChanged(nameof(ColorName));
+                }
+            }
+        } 
+
         //public ObservableProperty<bool> Topmost { get; set; } = new();
         //public ObservableProperty<string> Topmost { get; set; } = new("True");
 
@@ -168,6 +199,7 @@ namespace floating_clock
         public string VisibilityRAM { get; set; } = "Visible";
         public string VisibilityUpload { get; set; } = "Visible";
         public string VisibilityDownload { get; set; } = "Visible";
+
 
 
 
@@ -422,7 +454,7 @@ namespace floating_clock
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -462,5 +494,12 @@ namespace floating_clock
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    public enum ColorOptions
+    {
+        red,
+        blue,
+        green,
     }
 }
