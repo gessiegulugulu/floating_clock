@@ -52,6 +52,25 @@ namespace floating_clock
             }
         }
 
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+            if (e.ChangedButton == MouseButton.Left)
+            {
+
+                var x = Properties.Setting.Default.PosLeft;
+                var y = Properties.Setting.Default.PosTop;
+                if (x != this.Left || y != this.Top)
+                {
+                    Properties.Setting.Default.PosLeft = this.Left;
+                    Properties.Setting.Default.PosTop = this.Top;
+                    Properties.Setting.Default.Save();
+                }
+                 
+            }
+
+        }
+
         private void MenuItem_Checked(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;
@@ -72,7 +91,7 @@ namespace floating_clock
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
-            Properties.Setting.Default.Save();
+            data.SaveSetting();
             //data.SaveSetting();
             Close();
         }

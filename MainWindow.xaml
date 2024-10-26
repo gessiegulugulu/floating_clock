@@ -14,6 +14,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         MouseDown="Window_MouseDown"
+        MouseUp="Window_MouseUp"
         Topmost="{Binding Topmost}"
         Background="#7F323546"
         Foreground="White">
@@ -24,9 +25,9 @@
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource fg}" />
         </Style>
-        
-        
-  
+
+        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+
     </Window.Resources>
 
     
