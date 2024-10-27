@@ -38,7 +38,28 @@
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock>
+                                    Save
+                </TextBlock>
+                <Rectangle Grid.Column="1" Width="10" Height="10" Fill="Black" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+            </Grid>
+
+            <MenuItem Header="虚无灰" IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True">
+                <MenuItem.Background>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                        <GradientStop Color="#FFD55353" />
+                        <GradientStop Color="#FFD55353" Offset="0.2"/>
+                        <GradientStop Color="Transparent"  Offset="0.2"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </MenuItem.Background>
+            </MenuItem>
         </StackPanel>
     </ScrollViewer>
 </Window>

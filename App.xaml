@@ -7,6 +7,7 @@
         <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         <local:StringToBooleanConverter x:Key="StringToBooleanConverter" />
         <local:ColorNameToColorBrushConverter x:Key="ColorNameToColorBrushConverter" />
+        <local:ColorNameToOpaqueColorBrushConverter x:Key="ColorNameToOpaqueColorBrushConverter" />
 
         <SolidColorBrush Color="#7F444444" x:Key="gray"  />
         <SolidColorBrush Color="#7F552020" x:Key="red"   />
@@ -17,5 +18,16 @@
         <SolidColorBrush Color="#7F24827C" x:Key="cyan"  />
         <SolidColorBrush Color="#7F481B9F" x:Key="purple"/>
         <SolidColorBrush Color="#7F9C5C7C" x:Key="pink"  />
+
+        <SolidColorBrush Color="#444444" x:Key="opaque_gray"  />
+        <SolidColorBrush Color="#552020" x:Key="opaque_red"   />
+        <SolidColorBrush Color="#238202" x:Key="opaque_green" />
+        <SolidColorBrush Color="#1E2F65" x:Key="opaque_blue"  />
+        <SolidColorBrush Color="#854803" x:Key="opaque_orange"/>
+        <SolidColorBrush Color="#867E01" x:Key="opaque_yellow"/>
+        <SolidColorBrush Color="#24827C" x:Key="opaque_cyan"  />
+        <SolidColorBrush Color="#481B9F" x:Key="opaque_purple"/>
+        <SolidColorBrush Color="#9C5C7C" x:Key="opaque_pink"  />
+
     </Application.Resources>
 </Application>

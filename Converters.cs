@@ -67,5 +67,22 @@ namespace floating_clock
             throw new NotImplementedException();
         }
     }
+
+    public class ColorNameToOpaqueColorBrushConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string stringValue)
+            {
+                return Application.Current.FindResource("opaque_" + stringValue.ToLower());
+            }
+            return Application.Current.FindResource("opaque_gray");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

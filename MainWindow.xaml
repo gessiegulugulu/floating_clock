@@ -26,6 +26,12 @@
             <Setter Property="Foreground" Value="{StaticResource fg}" />
         </Style>
 
+        <!--
+        <Style TargetType="ContextMenu">
+            <Setter Property="Foreground" Value="{StaticResource fg}" />
+            <Setter Property="Background" Value="{Binding ColorName, Converter={StaticResource ColorNameToColorBrushConverter}}"/>
+        </Style>
+        -->
 
     </Window.Resources>
 
@@ -74,17 +80,124 @@
                     <MenuItem Header="上传网速" IsCheckable="True" IsChecked="{Binding ShowUpload, Mode=TwoWay}" />
                     <MenuItem Header="下载网速" IsCheckable="True" IsChecked="{Binding ShowDownload, Mode=TwoWay}" />
                 </MenuItem>
+                
+                <MenuItem Foreground="{Binding ColorName, Converter={StaticResource ColorNameToOpaqueColorBrushConverter}}">
+                    <MenuItem.Header >
+                        <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">主题色</TextBlock>
+                    </MenuItem.Header>
+                    <MenuItem.InputGestureText>
+                        ██
+                    </MenuItem.InputGestureText> 
+                <!-- 
                 <MenuItem Header="主题色">
-                    <MenuItem Header="虚无灰" IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="红桃粉" IsChecked="{Binding ColorName, ConverterParameter=pink, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="梦幻紫" IsChecked="{Binding ColorName, ConverterParameter=purple, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="星空蓝" IsChecked="{Binding ColorName, ConverterParameter=blue, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"   IsCheckable="True"/>
-                    <MenuItem Header="薄荷青" IsChecked="{Binding ColorName, ConverterParameter=cyan, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="嫩草绿" IsChecked="{Binding ColorName, ConverterParameter=green, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}"  IsCheckable="True"/>
-                    <MenuItem Header="柠檬黄" IsChecked="{Binding ColorName, ConverterParameter=yellow, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="夕阳橙" IsChecked="{Binding ColorName, ConverterParameter=orange, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
-                    <MenuItem Header="活力红" IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" IsCheckable="True"/>
+                    <MenuItem.Icon>
+                       
+                        <Rectangle  Width="12" 
+                                    Height="12"
+                                    Fill="{Binding ColorName, Converter={StaticResource ColorNameToOpaqueColorBrushConverter}}" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center"
+                                    />
+                       
 
+                    </MenuItem.Icon> -->
+                    <MenuItem IsCheckable="True"
+                        IsChecked="{Binding ColorName, ConverterParameter=gray, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+                        Foreground="{DynamicResource opaque_gray}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">虚无灰</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=pink, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_pink}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">红桃粉</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=purple, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_purple}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">梦幻紫</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=blue, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_blue}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">星空蓝</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=cyan, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_cyan}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">薄荷青</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=green, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_green}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">嫩草绿</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=yellow, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_yellow}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">柠檬黄</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=orange, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_orange}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">夕阳橙</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
+
+                    <MenuItem IsCheckable="True"
+    IsChecked="{Binding ColorName, ConverterParameter=red, Converter={StaticResource StringToBooleanConverter},  Mode=TwoWay}" 
+    Foreground="{DynamicResource opaque_red}">
+                        <MenuItem.Header>
+                            <TextBlock Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">活力红</TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem.InputGestureText>
+                            ██
+                        </MenuItem.InputGestureText>
+                    </MenuItem>
                 </MenuItem>
                 <Separator/>
 
