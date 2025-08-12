@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows;
+
 namespace floating_clock
 {
     public class EnumToBooleanConverter : IValueConverter
@@ -21,7 +22,7 @@ namespace floating_clock
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object result = value.Equals(true) ? parameter : Binding.DoNothing;
+            object result = value.Equals(true) ? parameter : System.Windows.Data.Binding.DoNothing;
             Debug.WriteLine($"ConvertBack: value={value}, parameter={parameter}, result={result}");
             return result;
         }
@@ -47,7 +48,7 @@ namespace floating_clock
                 return parameter.ToString();
             }
 
-            return Binding.DoNothing;
+            return System.Windows.Data.Binding.DoNothing;
         }
     }
 
@@ -57,9 +58,9 @@ namespace floating_clock
         {
             if (value is string stringValue)
             {
-                return Application.Current.FindResource(stringValue.ToLower());
+                return System.Windows.Application.Current.FindResource(stringValue.ToLower());
             }
-            return Application.Current.FindResource("gray");
+            return System.Windows.Application.Current.FindResource("gray");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -74,9 +75,9 @@ namespace floating_clock
         {
             if (value is string stringValue)
             {
-                return Application.Current.FindResource("opaque_" + stringValue.ToLower());
+                return System.Windows.Application.Current.FindResource("opaque_" + stringValue.ToLower());
             }
-            return Application.Current.FindResource("opaque_gray");
+            return System.Windows.Application.Current.FindResource("opaque_gray");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

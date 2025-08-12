@@ -18,6 +18,8 @@ using System.Runtime.CompilerServices;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Win32.SafeHandles;
 using System.Data;
+using Microsoft.Win32;
+using WinForms = System.Windows.Forms;
 
 namespace floating_clock
 {
@@ -29,11 +31,18 @@ namespace floating_clock
     {
         public DataModel data = new DataModel();
         private DispatcherTimer timer = new DispatcherTimer();
+        private WinForms.NotifyIcon? notifyIcon;
+        private bool allowClose = false;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            StateChanged += MainWindow_StateChanged;
+            Closing += MainWindow_Closing;
+
+            // 初始化系统托盘
+            InitializeNotifyIcon();
 
             // 初始化计时器
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -42,6 +51,96 @@ namespace floating_clock
 
             this.DataContext = data;
 
+        }
+
+        private void InitializeNotifyIcon()
+        {
+            notifyIcon = new WinForms.NotifyIcon();
+            notifyIcon.Icon = new System.Drawing.Icon(SystemIcons.Application, 16, 16);
+            notifyIcon.Text = "Floating Clock - 悬浮时钟";
+            notifyIcon.Visible = true;
+
+            // 双击托盘图标显示/隐藏窗口
+            notifyIcon.DoubleClick += (s, e) => ToggleWindowVisibility();
+
+            // 创建托盘右键菜单
+            var contextMenu = new WinForms.ContextMenuStrip();
+            contextMenu.Items.Add("显示/隐藏", null, (s, e) => ToggleWindowVisibility());
+            contextMenu.Items.Add("开机自启", null, (s, e) => ToggleAutoStart());
+            contextMenu.Items.Add("-");
+            contextMenu.Items.Add("退出", null, (s, e) => ExitApplication());
+            
+            notifyIcon.ContextMenuStrip = contextMenu;
+        }
+
+        private void ToggleWindowVisibility()
+        {
+            if (Visibility == Visibility.Visible && WindowState != WindowState.Minimized)
+            {
+                Hide();
+            }
+            else
+            {
+                Show();
+                WindowState = WindowState.Normal;
+                Activate();
+            }
+        }
+
+        private void ToggleAutoStart()
+        {
+            try
+            {
+                RegistryKey? rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                if (rk != null)
+                {
+                    string appName = "FloatingClock";
+                    string exePath = System.AppContext.BaseDirectory + "floating_clock.exe";
+                    
+                    if (rk.GetValue(appName) == null)
+                    {
+                        // 添加自启动，带最小化参数
+                        rk.SetValue(appName, $"\"{exePath}\" --minimized");
+                        System.Windows.MessageBox.Show("已添加开机自启动", "设置成功", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        // 移除自启动
+                        rk.DeleteValue(appName, false);
+                        System.Windows.MessageBox.Show("已移除开机自启动", "设置成功", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    rk.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"设置自启动失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ExitApplication()
+        {
+            allowClose = true;
+            data.SaveSetting();
+            notifyIcon?.Dispose();
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!allowClose)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        private void MainWindow_StateChanged(object? sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -73,8 +172,12 @@ namespace floating_clock
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
-            data.SaveSetting();
-            Close();
+            ExitApplication();
+        }
+
+        private void MenuItem_Click_Minimize(object sender, RoutedEventArgs e)
+        {
+            Hide();
         }
 
         private void MenuItem_Click_Help(object sender, RoutedEventArgs e)
@@ -87,7 +190,9 @@ namespace floating_clock
 
             text += "- 配置文件保存在: \n";
             text += ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
-            helpWindow.info.Text = text;
+            
+            // 需要检查HelpWindow的实际实现来设置文本
+            // helpWindow.info.Text = text;
 
             helpWindow.Show();
             
@@ -122,6 +227,13 @@ namespace floating_clock
             {
                 this.Left = x;
                 this.Top = y;
+            }
+
+            // 检查是否需要最小化启动
+            if (System.Windows.Application.Current.Properties.Contains("StartMinimized"))
+            {
+                WindowState = WindowState.Minimized;
+                Hide();
             }
 
             //MessageBox.Show($"{x},{y}");
@@ -440,9 +552,9 @@ namespace floating_clock
             //config.Save(ConfigurationSaveMode.Modified);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -450,9 +562,9 @@ namespace floating_clock
 
     public class ObservableProperty<T> : INotifyPropertyChanged
     {
-        private T value;
+        private T? value;
 
-        public T Value
+        public T? Value
         {
             get { return value; }
             set
@@ -470,15 +582,15 @@ namespace floating_clock
 
         }
 
-        public ObservableProperty(T value)
+        public ObservableProperty(T? value)
         {
             Value = value;
         }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

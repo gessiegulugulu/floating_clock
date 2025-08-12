@@ -202,6 +202,7 @@
                 </MenuItem>
                 <Separator/>
 
+                <MenuItem Header="最小化到托盘" Click="MenuItem_Click_Minimize"/>
                 <MenuItem Header="帮助..." Click="MenuItem_Click_Help" />
                 <MenuItem Header="退出" Click="MenuItem_Click_Exit" />
             </ContextMenu>
