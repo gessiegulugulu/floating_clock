@@ -18,6 +18,10 @@
 - [ ] 本地化		    *//优先级 99*
 
 
+## Deploy
+```
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+```
 
 
 

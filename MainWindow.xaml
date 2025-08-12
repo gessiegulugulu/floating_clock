@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Floating Clock" 
         Width="140" 
-        Height="192"
+        Height="80"
         SizeToContent="Height"
         HorizontalAlignment="Left" 
         VerticalAlignment="Top" 
@@ -18,6 +18,7 @@
         Topmost="{Binding Topmost}"
         Background="{Binding ColorName, Converter={StaticResource ColorNameToColorBrushConverter}}"
         Foreground="White">
+        <!-- Width = 140, Height = 192 -->
 
     <Window.Resources>
         <SolidColorBrush x:Key="fg" Color="#BFFFFFFF" />
@@ -37,8 +38,8 @@
 
     
     <!-- 主布局 -->
-    <StackPanel x:Name="layout" Margin="10">
-        <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="20" Visibility="{Binding VisibilityClock}"/>
+    <StackPanel x:Name="layout" Margin="2">
+        <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="16" Visibility="{Binding VisibilityClock}"/>
 
         <Grid Height="auto">
             <Grid.RowDefinitions>
