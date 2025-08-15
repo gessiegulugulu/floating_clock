@@ -20,6 +20,8 @@ using Microsoft.Win32.SafeHandles;
 using System.Data;
 using Microsoft.Win32;
 using WinForms = System.Windows.Forms;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 
 namespace floating_clock
 {
@@ -29,6 +31,17 @@ namespace floating_clock
     /// color palette
     public partial class MainWindow : Window
     {
+        // Windows API 调用，用于控制窗口在 Alt+Tab 中的显示
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        private const int GWL_EXSTYLE = -20;
+        private const int WS_EX_TOOLWINDOW = 0x00000080;
+        private const int WS_EX_APPWINDOW = 0x00040000;
+
         public DataModel data = new DataModel();
         private DispatcherTimer timer = new DispatcherTimer();
         private WinForms.NotifyIcon? notifyIcon;
@@ -213,6 +226,10 @@ namespace floating_clock
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            // 设置窗口样式，使其不在 Alt+Tab 中显示
+            var hwnd = new WindowInteropHelper(this).Handle;
+            var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TOOLWINDOW);
            
             var x = Properties.Setting.Default.PosLeft;
             var y = Properties.Setting.Default.PosTop;

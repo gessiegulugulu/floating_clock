@@ -18,11 +18,12 @@
 - [ ] 本地化		    *//优先级 99*
 
 
+## 修改的其他功能
+1. 根据我的需求修改了窗口的高度和字体大小
+2. 设置窗口样式，使其不在 任务栏 / Alt+Tab 中显示
+3. 增加了系统托盘图标，支持简单的窗口显示和隐藏，支持快速设置开机自启
+
 ## Deploy
 ```
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
-
-
-
-

@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:floating_clock" d:DataContext="{d:DesignInstance Type=local:DataModel}"
         mc:Ignorable="d"
         Title="Floating Clock" 
-        Width="140" 
-        Height="80"
+        Width="100" 
+        Height="30"
         SizeToContent="Height"
         HorizontalAlignment="Left" 
         VerticalAlignment="Top" 
         AllowsTransparency="True"
         WindowStyle="None"
+        ShowInTaskbar="False"
         MouseDown="Window_MouseDown"
         MouseUp="Window_MouseUp"
         Topmost="{Binding Topmost}"
@@ -39,7 +40,8 @@
     
     <!-- 主布局 -->
     <StackPanel x:Name="layout" Margin="2">
-        <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="16" Visibility="{Binding VisibilityClock}"/>
+        <!-- <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="14" Visibility="{Binding VisibilityClock}"/>  -->
+        <Label x:Name="clock" Content="{Binding Time}" HorizontalContentAlignment="Center" FontSize="16" Visibility="{Binding VisibilityClock}"/> 
 
         <Grid Height="auto">
             <Grid.RowDefinitions>
