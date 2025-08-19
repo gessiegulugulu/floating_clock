@@ -21,6 +21,14 @@
     </Compile>
   </ItemGroup>
 
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Update="Properties\Setting.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

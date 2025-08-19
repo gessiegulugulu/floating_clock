@@ -45,6 +45,8 @@ namespace floating_clock
         public DataModel data = new DataModel();
         private DispatcherTimer timer = new DispatcherTimer();
         private WinForms.NotifyIcon? notifyIcon;
+        private WinForms.ToolStripMenuItem? showHideMenuItem;
+        private WinForms.ToolStripMenuItem? autoStartMenuItem;
         private bool allowClose = false;
 
         public MainWindow()
@@ -69,7 +71,32 @@ namespace floating_clock
         private void InitializeNotifyIcon()
         {
             notifyIcon = new WinForms.NotifyIcon();
-            notifyIcon.Icon = new System.Drawing.Icon(SystemIcons.Application, 16, 16);
+            try
+            {
+                // 尝试从资源中加载图标
+                var iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,,/icon.ico"));
+                if (iconStream != null)
+                {
+                    notifyIcon.Icon = new System.Drawing.Icon(iconStream.Stream);
+                }
+                else
+                {
+                    // 备选方案：从文件系统加载
+                    string iconPath = System.IO.Path.Combine(System.AppContext.BaseDirectory, "icon.ico");
+                    if (System.IO.File.Exists(iconPath))
+                    {
+                        notifyIcon.Icon = new System.Drawing.Icon(iconPath);
+                    }
+                    else
+                    {
+                        notifyIcon.Icon = System.Drawing.SystemIcons.Application;
+                    }
+                }
+            }
+            catch
+            {
+                notifyIcon.Icon = System.Drawing.SystemIcons.Application;
+            }
             notifyIcon.Text = "Floating Clock - 悬浮时钟";
             notifyIcon.Visible = true;
 
@@ -78,10 +105,16 @@ namespace floating_clock
 
             // 创建托盘右键菜单
             var contextMenu = new WinForms.ContextMenuStrip();
-            contextMenu.Items.Add("显示/隐藏", null, (s, e) => ToggleWindowVisibility());
-            contextMenu.Items.Add("开机自启", null, (s, e) => ToggleAutoStart());
+            showHideMenuItem = new WinForms.ToolStripMenuItem("显示", null, (s, e) => ToggleWindowVisibility());
+            autoStartMenuItem = new WinForms.ToolStripMenuItem("开机自启", null, (s, e) => ToggleAutoStart());
+            
+            contextMenu.Items.Add(showHideMenuItem);
+            contextMenu.Items.Add(autoStartMenuItem);
             contextMenu.Items.Add("-");
             contextMenu.Items.Add("退出", null, (s, e) => ExitApplication());
+            
+            // 设置菜单打开时更新状态
+            contextMenu.Opening += (s, e) => UpdateMenuItemsStatus();
             
             notifyIcon.ContextMenuStrip = contextMenu;
         }
@@ -98,6 +131,9 @@ namespace floating_clock
                 WindowState = WindowState.Normal;
                 Activate();
             }
+            
+            // 更新菜单状态
+            UpdateMenuItemsStatus();
         }
 
         private void ToggleAutoStart()
@@ -114,20 +150,56 @@ namespace floating_clock
                     {
                         // 添加自启动，带最小化参数
                         rk.SetValue(appName, $"\"{exePath}\" --minimized");
-                        System.Windows.MessageBox.Show("已添加开机自启动", "设置成功", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
                         // 移除自启动
                         rk.DeleteValue(appName, false);
-                        System.Windows.MessageBox.Show("已移除开机自启动", "设置成功", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     rk.Close();
+                    
+                    // 立即更新菜单状态
+                    UpdateMenuItemsStatus();
                 }
             }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show($"设置自启动失败: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private bool IsAutoStartEnabled()
+        {
+            try
+            {
+                RegistryKey? rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", false);
+                if (rk != null)
+                {
+                    string appName = "FloatingClock";
+                    bool isEnabled = rk.GetValue(appName) != null;
+                    rk.Close();
+                    return isEnabled;
+                }
+            }
+            catch
+            {
+                // 如果出现异常，返回false
+            }
+            return false;
+        }
+
+        private void UpdateMenuItemsStatus()
+        {
+            if (showHideMenuItem != null)
+            {
+                // 根据窗口当前显示状态设置勾选
+                showHideMenuItem.Checked = (Visibility == Visibility.Visible && WindowState != WindowState.Minimized);
+            }
+            
+            if (autoStartMenuItem != null)
+            {
+                // 根据自启动状态设置勾选
+                autoStartMenuItem.Checked = IsAutoStartEnabled();
             }
         }
 

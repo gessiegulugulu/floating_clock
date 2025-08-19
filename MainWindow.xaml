@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:floating_clock" d:DataContext="{d:DesignInstance Type=local:DataModel}"
         mc:Ignorable="d"
         Title="Floating Clock" 
+        Icon="pack://application:,,,/icon.ico"
         Width="100" 
         Height="30"
         SizeToContent="Height"
